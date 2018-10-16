@@ -1,0 +1,29 @@
+{
+  "name": "lb-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^2.2.2",
+    "bcrypt": "^3.0.0",
+    "dotenv": "^6.0.0",
+    "joi": "^13.7.0",
+    "jsonwebtoken": "^8.3.0",
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.38.0",
+    "web-push": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production NODE_PORT=80 NODE_PATH=. pm2 start src -i 0",
+    "start:dev": "cross-env NODE_ENV=development NODE_PATH=. nodemon --watch src/ src/index.js"
+  }
+}
