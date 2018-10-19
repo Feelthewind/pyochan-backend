@@ -57,10 +57,10 @@ exports.list = async (ctx) => {
   }
   const { topicId, isReview } = ctx.query;
 
-  const review = isReview ? 1 : 0;
+  // const review = isReview ? 1 : 0;
   try {
     const lessons = await Lesson.findAll({
-      where: { topicId, isReview: review },
+      where: { topicId },
       raw: true
     });
 

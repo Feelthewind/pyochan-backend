@@ -28,8 +28,8 @@ exports.write = async (ctx) => {
 
     webpush.setVapidDetails(
       'mailto:admin@pyochan.com',
-      'BHWsLjFb_kWd97fRDvUbpSFZJl79i88Un_D0v330z4NsdsMKHS7diGzRPajSiY0Z11AK81q_yOyMyLNCOFQ81S8',
-      'IHqUvXH8KcCJB1ifxWeSdA54kScAW3X2KBRzQk82g24'
+      'BNmTh0HBy8K8QEg6XPha2_ufRo_4ixyxrNV-xy3_6cC34yHVq01bIUDabw7JSrC6XxbgMaVMDqWQkI5b8xewJ9E',
+      'd-Y6v9-_pft8NUYPl24Op3qm1IjlSnyKf2WINhxIPYQ'
     );
     const subscriptions = await Subscription.findAll({});
     subscriptions.forEach((sub) => {
@@ -60,7 +60,7 @@ exports.write = async (ctx) => {
   }
 };
 
-exports.read = async (ctx) => {
+exports.readTopics = async (ctx) => {
   const { authorization: token } = ctx.headers;
   const isAuthenticated = await authAdmin(ctx, token);
   if (!isAuthenticated) {
@@ -78,6 +78,26 @@ exports.read = async (ctx) => {
       raw: true
     });
     ctx.body = topics;
+  } catch (e) {
+    ctx.throw(e, 500);
+  }
+};
+
+exports.readTopic = async (ctx) => {
+  const { authorization: token } = ctx.headers;
+  const isAuthenticated = await authAdmin(ctx, token);
+  if (!isAuthenticated) {
+    ctx.status = 401;
+    ctx.body = {
+      error: 'Unauthorized'
+    };
+    return;
+  }
+  const { id } = ctx.params;
+
+  try {
+    const topic = await Topic.findOne({ where: { id } });
+    ctx.body = topic;
   } catch (e) {
     ctx.throw(e, 500);
   }
