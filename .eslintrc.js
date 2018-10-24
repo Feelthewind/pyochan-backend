@@ -14,6 +14,9 @@ module.exports = {
     'no-console': 0,
     'linebreak-style': 0,
     'import/no-unresolved': 0,
-    'no-plusplus': 0
+    'no-plusplus': 0,
+    'no-throw-literal': 0,
+    camelcase: 0,
+    'no-new': 0
   }
 };

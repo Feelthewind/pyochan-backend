@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     },
     isReview: {
       type: DataTypes.BOOLEAN
+    },
+    audioUrl: {
+      type: DataTypes.STRING(110),
+      allowNull: false
     }
   },
   {

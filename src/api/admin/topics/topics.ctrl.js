@@ -71,10 +71,32 @@ exports.readTopics = async (ctx) => {
     return;
   }
 
-  const { season } = ctx.query;
+  // const { season } = ctx.query;
   try {
     const topics = await Topic.findAll({
-      where: { season },
+      raw: true
+    });
+    ctx.body = topics;
+  } catch (e) {
+    ctx.throw(e, 500);
+  }
+};
+
+exports.readSeasonTopics = async (ctx) => {
+  const { authorization: token } = ctx.headers;
+  const isAuthenticated = await authAdmin(ctx, token);
+  if (!isAuthenticated) {
+    ctx.status = 401;
+    ctx.body = {
+      error: 'Unauthorized'
+    };
+    return;
+  }
+
+  const { season } = ctx.params;
+  try {
+    const topics = await Topic.findAll({
+      season,
       raw: true
     });
     ctx.body = topics;
